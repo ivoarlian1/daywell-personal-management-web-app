@@ -1,0 +1,912 @@
+# MASTER PROMPT GITHUB COPILOT — MEMBANGUN PERSONAL MANAGEMENT SYSTEM (PMS) SECARA LENGKAP
+
+## 1. PERAN DAN TUJUAN UTAMA
+
+Bertindaklah sebagai **Senior Full-Stack Developer, Software Architect, Database Engineer, UI/UX Designer, QA Engineer, dan DevOps Engineer** yang bertanggung jawab membangun sebuah aplikasi web Personal Management System (PMS) secara menyeluruh, profesional, aman, responsif, dan siap digunakan.
+
+Nama aplikasi: **Personal Management System (PMS)**.
+
+Tujuan aplikasi adalah membantu pengguna mengelola aktivitas pribadi dalam satu platform, termasuk catatan harian, jurnal, tugas, kebiasaan, suasana hati, jadwal kegiatan, dan koleksi buku.
+
+Saya ingin aplikasi ini dikembangkan sampai benar-benar berfungsi, bukan hanya berupa desain, prototipe, halaman statis, atau kumpulan kode yang belum terhubung.
+
+Kamu harus:
+- Memeriksa kondisi proyek sebelum melakukan perubahan.
+- Merancang arsitektur dan struktur database yang sesuai.
+- Mengimplementasikan setiap fitur sampai berfungsi.
+- Menghubungkan antarmuka dengan database dan backend.
+- Memastikan setiap operasi CRUD berfungsi dengan benar.
+- Mengimplementasikan autentikasi, otorisasi, validasi, dan keamanan.
+- Membuat pengujian otomatis dan memperbaiki kegagalan yang ditemukan.
+- Menyediakan dokumentasi instalasi, konfigurasi, pengujian, dan deployment.
+- Memperbarui dokumentasi progres setiap kali menyelesaikan tahapan.
+- Melanjutkan implementasi secara bertahap hingga seluruh kriteria penyelesaian terpenuhi.
+
+**Jangan berhenti setelah membuat rencana atau kerangka aplikasi.** Setelah analisis awal, lanjutkan ke implementasi nyata. Jika satu tahapan selesai, lanjutkan ke tahapan berikutnya selama masih memungkinkan.
+
+## 2. ATURAN KERJA WAJIB
+
+Sebelum menulis atau mengubah kode:
+
+1. Periksa seluruh struktur proyek yang sudah ada.
+2. Identifikasi versi PHP, Laravel, Composer, Node.js, npm, database, serta dependensi yang tersedia.
+3. Periksa konfigurasi aplikasi dan file penting yang sudah ada.
+4. Pertahankan kode yang masih berfungsi dan jangan menghapus pekerjaan sebelumnya tanpa alasan teknis.
+5. Jika proyek belum tersedia, buat proyek baru menggunakan versi Laravel stabil terbaru yang kompatibel dengan lingkungan PHP.
+6. Jika proyek sudah tersedia, sesuaikan implementasi dengan arsitektur yang ada sebelum memutuskan perubahan besar.
+7. Buat dokumentasi awal mengenai arsitektur, rencana pengerjaan, risiko teknis, dan progres.
+
+Buat file dokumentasi berikut:
+
+- `docs/architecture.md`
+- `docs/database-design.md`
+- `docs/implementation-roadmap.md`
+- `docs/security.md`
+- `docs/deployment.md`
+- `docs/testing.md`
+- `docs/implementation-progress.md`
+
+File `docs/implementation-progress.md` wajib diperbarui setiap kali sebuah fitur atau tahapan selesai. Catat fitur yang sudah selesai, yang masih dikerjakan, hasil pengujian aktual, kendala, dan langkah selanjutnya.
+
+Jangan hanya memberikan instruksi atau contoh kode kepada saya. Gunakan kemampuan pengeditan workspace untuk membuat dan mengubah file proyek secara langsung.
+
+Jangan mengklaim suatu fitur telah selesai sebelum implementasi dan pengujiannya benar-benar dilakukan. Jangan membuat hasil pengujian, log, atau bukti keberhasilan palsu.
+
+Jika terdapat keterbatasan lingkungan atau membutuhkan keputusan dari saya, jelaskan secara spesifik. Untuk keputusan teknis yang dapat ditentukan berdasarkan praktik terbaik, pilih solusi yang paling masuk akal dan lanjutkan.
+
+## 3. TEKNOLOGI DAN ARSITEKTUR
+
+Gunakan teknologi berikut selama kompatibel dengan kondisi proyek:
+
+**Backend**
+- Laravel versi stabil terbaru yang kompatibel dengan versi PHP yang tersedia.
+- PHP dengan praktik penulisan kode yang mengikuti standar Laravel.
+- Laravel Eloquent ORM.
+- Laravel Form Requests untuk validasi.
+- Laravel Policies dan Gates untuk otorisasi.
+- Laravel Socialite untuk autentikasi Google.
+- Laravel migrations, seeders, factories, dan automated tests.
+
+**Frontend**
+- Blade sebagai sistem template utama.
+- Livewire untuk interaksi dinamis.
+- Tailwind CSS untuk styling.
+- Alpine.js untuk interaksi frontend ringan.
+- Vite untuk pengelolaan aset frontend.
+
+Gunakan versi dependensi yang kompatibel satu sama lain. Jangan mencampurkan API Tailwind CSS versi berbeda atau memasang paket yang tidak diperlukan.
+
+**Database dan penyimpanan**
+- Supabase PostgreSQL sebagai database utama.
+- Supabase Storage untuk penyimpanan file jika memang diperlukan.
+- Koneksi database melalui konfigurasi backend Laravel dan koneksi PostgreSQL yang sesuai.
+- File privat harus dilindungi oleh mekanisme otorisasi yang benar.
+
+**Integrasi**
+- Google OAuth untuk login.
+- Google Calendar API untuk integrasi jadwal.
+- PDF generator yang kompatibel dengan lingkungan deployment.
+- Progressive Web App (PWA).
+
+**Deployment**
+- Siapkan konfigurasi deployment yang terdokumentasi.
+- Evaluasi apakah runtime Laravel, sesi, database, penyimpanan file, PDF generator, dan kebutuhan proses latar belakang benar-benar didukung oleh platform hosting yang dipilih.
+- Jangan menganggap Vercel otomatis dapat menjalankan seluruh aplikasi Laravel secara konvensional.
+- Jika deployment Laravel penuh tidak didukung oleh konfigurasi Vercel yang tersedia, gunakan hosting yang kompatibel dengan Laravel atau pisahkan fungsi deployment secara jelas.
+- Jangan mengorbankan fungsi aplikasi hanya untuk mempertahankan satu platform hosting.
+
+Jangan menampilkan kredensial, password, OAuth secret, service role key, atau token privat di frontend, repositori publik, maupun log.
+
+## 4. DESAIN DAN PENGALAMAN PENGGUNA
+
+Bangun antarmuka yang modern, minimalis, profesional, nyaman digunakan, dan konsisten.
+
+Aplikasi harus responsif untuk:
+- Desktop.
+- Laptop.
+- Tablet.
+- Smartphone.
+
+Gunakan prinsip desain berikut:
+
+- Sidebar navigasi untuk desktop.
+- Navigasi mobile yang nyaman, seperti drawer atau bottom navigation.
+- Header dengan judul halaman, profil pengguna, dan akses cepat yang relevan.
+- Dashboard dengan ringkasan aktivitas yang berasal dari database.
+- Formulir yang mudah dipahami.
+- Tombol aksi dengan label yang jelas.
+- Dialog konfirmasi untuk tindakan destruktif.
+- Notifikasi keberhasilan dan kegagalan yang informatif.
+- Loading state untuk operasi asinkron.
+- Empty state ketika pengguna belum memiliki data.
+- Validasi pada sisi server dan umpan balik pada sisi antarmuka.
+- Tipografi, jarak, warna, ikon, dan komponen UI yang konsisten.
+- Aksesibilitas dasar, termasuk label input, fokus keyboard, dan kontras yang memadai.
+
+Jangan membuat dashboard dengan angka statis atau data palsu setelah aplikasi terhubung ke database.
+
+Data contoh hanya boleh digunakan melalui seeder atau lingkungan demonstrasi yang terpisah.
+
+Semua tombol, menu, filter, pencarian, pagination, formulir, dan tindakan pengguna harus memiliki fungsi yang nyata.
+
+## 5. AUTENTIKASI DAN MANAJEMEN PENGGUNA
+
+Implementasikan:
+
+1. Registrasi jika metode tersebut memang diaktifkan.
+2. Login menggunakan email dan password.
+3. Login menggunakan akun Google melalui Laravel Socialite.
+4. Logout.
+5. Validasi input.
+6. Penanganan kegagalan login dengan pesan yang aman dan jelas.
+7. Pengelolaan profil pengguna.
+8. Perubahan informasi profil.
+9. Pengelolaan zona waktu pengguna.
+10. Perlindungan halaman yang memerlukan autentikasi.
+
+Jika login Google digunakan, tangani:
+- Callback OAuth.
+- Validasi identitas pengguna.
+- Penanganan akun yang sudah terdaftar.
+- Penanganan email yang tidak tersedia atau belum terverifikasi sesuai kebijakan aplikasi.
+- Penanganan kegagalan autentikasi.
+- Konfigurasi URL callback berdasarkan lingkungan.
+- Penyimpanan kredensial hanya di sisi server.
+
+Gunakan mekanisme sesi Laravel yang aman. Lindungi aplikasi dari CSRF, session fixation, dan akses tanpa autentikasi.
+
+Jangan pernah mempercayai `user_id` yang dikirim oleh browser sebagai bukti kepemilikan data.
+
+Semua data pribadi harus terhubung dengan pengguna yang sedang login dan aksesnya harus diperiksa di backend.
+
+## 6. MODUL DASHBOARD
+
+Buat dashboard utama yang menampilkan ringkasan data aktual, antara lain:
+
+- Jumlah tugas yang belum selesai.
+- Jumlah tugas yang sudah selesai.
+- Tugas yang mendekati tenggat waktu.
+- Jadwal hari ini.
+- Kebiasaan yang perlu diselesaikan hari ini.
+- Ringkasan mood terbaru.
+- Catatan harian terbaru.
+- Buku yang sedang dibaca.
+- Progres membaca buku.
+- Ringkasan aktivitas dalam rentang waktu tertentu.
+
+Tambahkan navigasi cepat menuju setiap modul.
+
+Jika suatu modul belum memiliki data, tampilkan empty state yang informatif, bukan angka atau grafik palsu.
+
+Pastikan agregasi data menggunakan pengguna yang sedang login agar informasi antar pengguna tidak tercampur.
+
+## 7. MODUL DIARY — CATATAN HARIAN
+
+Buat modul Diary untuk menyimpan catatan harian.
+
+Fitur wajib:
+
+- Membuat catatan baru.
+- Melihat detail catatan.
+- Mengedit catatan.
+- Menghapus catatan dengan konfirmasi.
+- Menentukan tanggal catatan.
+- Menambahkan judul.
+- Menulis isi catatan dengan editor yang nyaman.
+- Menambahkan refleksi atau insight jika diperlukan.
+- Mencari catatan.
+- Memfilter catatan berdasarkan tanggal, bulan, dan tahun.
+- Menampilkan riwayat catatan secara kronologis.
+- Melihat detail tanpa kehilangan format isi.
+- Mengekspor catatan ke PDF.
+
+Gunakan validasi server dan batasi panjang input secara wajar.
+
+Pengguna hanya boleh membaca atau mengubah catatan miliknya sendiri.
+
+## 8. MODUL JOURNAL
+
+Modul Journal berisi empat fitur utama: Todo List, Habit Tracker, Gratitude Journal, dan Mood Tracker.
+
+### 8.1 Todo List
+
+Fitur wajib:
+
+- Menambahkan tugas.
+- Melihat daftar tugas.
+- Mengedit tugas.
+- Menghapus tugas.
+- Menentukan deskripsi.
+- Menentukan prioritas.
+- Menentukan status.
+- Menentukan tenggat waktu.
+- Menandai tugas selesai atau belum selesai.
+- Menyimpan waktu penyelesaian.
+- Mencari dan memfilter tugas.
+- Mengurutkan berdasarkan prioritas, status, atau tenggat.
+- Melihat tugas yang terlambat.
+- Mengekspor daftar tugas ke PDF.
+
+Gunakan status yang konsisten, misalnya `pending`, `in_progress`, dan `completed`.
+
+Jangan membuat status tugas yang berbeda-beda di setiap halaman.
+
+### 8.2 Habit Tracker
+
+Fitur wajib:
+
+- Membuat kebiasaan.
+- Mengedit kebiasaan.
+- Menonaktifkan atau menghapus kebiasaan.
+- Menentukan frekuensi kebiasaan.
+- Menandai kebiasaan selesai pada tanggal tertentu.
+- Membatalkan penandaan jika pengguna salah memilih.
+- Melihat riwayat pelaksanaan kebiasaan.
+- Menampilkan progres harian dan mingguan.
+- Menampilkan streak jika perhitungannya dapat didefinisikan dengan benar.
+- Mencegah pencatatan ganda untuk kebiasaan yang sama pada tanggal yang sama.
+- Mengekspor riwayat habit ke PDF.
+
+Gunakan zona waktu pengguna untuk menentukan tanggal pencatatan.
+
+Jangan menghitung streak berdasarkan data yang tidak lengkap atau mengabaikan aturan frekuensi kebiasaan.
+
+### 8.3 Gratitude Journal
+
+Fitur wajib:
+
+- Menambahkan catatan rasa syukur berdasarkan tanggal.
+- Menyimpan beberapa item rasa syukur dalam satu hari.
+- Mengedit dan menghapus item.
+- Melihat riwayat.
+- Memfilter berdasarkan periode.
+- Mengekspor catatan ke PDF.
+
+Pisahkan data item rasa syukur secara terstruktur jika diperlukan, bukan mengandalkan parsing teks yang rapuh.
+
+### 8.4 Mood Tracker
+
+Fitur wajib:
+
+- Mencatat suasana hati berdasarkan tanggal.
+- Menggunakan skala mood yang konsisten.
+- Menambahkan catatan opsional.
+- Melihat riwayat mood.
+- Menampilkan grafik tren mood.
+- Memfilter berdasarkan minggu, bulan, dan tahun.
+- Mengekspor riwayat mood ke PDF.
+
+Tentukan apakah satu pengguna boleh mencatat beberapa mood per hari atau hanya satu. Terapkan aturan tersebut secara konsisten pada database dan backend.
+
+Jangan memberikan diagnosis medis atau menyimpulkan kondisi klinis dari data mood.
+
+## 9. MODUL SCHEDULING
+
+Buat modul penjadwalan untuk mengatur kegiatan pribadi.
+
+Fitur wajib:
+
+- Membuat jadwal.
+- Melihat detail jadwal.
+- Mengedit jadwal.
+- Menghapus jadwal.
+- Menentukan judul kegiatan.
+- Menentukan deskripsi.
+- Menentukan waktu mulai dan selesai.
+- Menentukan zona waktu.
+- Menentukan lokasi jika diperlukan.
+- Menampilkan daftar jadwal.
+- Menampilkan kalender bulanan atau mingguan.
+- Menampilkan jadwal hari ini.
+- Mencari dan memfilter jadwal.
+- Mengekspor jadwal ke PDF.
+
+Validasi bahwa waktu selesai tidak lebih awal daripada waktu mulai.
+
+### Integrasi Todo List dan Scheduling
+
+Satu tugas dapat memiliki beberapa sesi jadwal.
+
+Contohnya, tugas “Belajar Linux” dapat memiliki jadwal belajar pada hari Senin, Rabu, dan Jumat.
+
+Gunakan relasi `schedules.todo_id` yang bersifat nullable untuk menghubungkan jadwal dengan tugas.
+
+Atur tanggung jawab data sebagai berikut:
+
+- Todo List menyimpan informasi tugas dan status penyelesaiannya.
+- Scheduling menyimpan waktu dan rincian setiap sesi kegiatan.
+- Jadwal mandiri dapat dibuat tanpa tugas terkait.
+- Satu tugas dapat memiliki beberapa jadwal.
+- Status penyelesaian tugas tidak boleh diduplikasi sebagai status terpisah pada setiap sesi tanpa kebutuhan yang jelas.
+- Mengubah tenggat waktu tugas tidak boleh secara diam-diam menggeser seluruh jadwal terkait.
+
+Ketika tugas dihapus, jadwal terkait harus ditangani melalui kebijakan penghapusan yang eksplisit dan terdokumentasi.
+
+## 10. INTEGRASI GOOGLE CALENDAR
+
+Implementasikan integrasi Google Calendar melalui Google OAuth dan Google Calendar API.
+
+Tahap awal harus berfokus pada sinkronisasi yang aman dan dapat diuji.
+
+Fitur wajib:
+
+- Menghubungkan akun Google.
+- Meminta scope Google Calendar hanya ketika diperlukan.
+- Menyimpan token sensitif secara aman.
+- Menangani pembaruan access token menggunakan refresh token jika tersedia.
+- Menampilkan status koneksi.
+- Memilih kalender tujuan jika didukung.
+- Mengirim jadwal aplikasi ke Google Calendar.
+- Menyimpan ID event eksternal.
+- Mencegah event ganda saat sinkronisasi diulang.
+- Mencatat hasil sinkronisasi.
+- Menangani kegagalan API dan pembatasan permintaan.
+- Menyediakan opsi untuk memutuskan integrasi.
+
+Mulailah dengan sinkronisasi satu arah dari aplikasi menuju Google Calendar. Jangan mengklaim sinkronisasi dua arah jika perubahan eksternal, konflik, penghapusan, dan pembaruan event belum ditangani serta diuji.
+
+Jangan menghapus event eksternal secara diam-diam.
+
+Sediakan status sinkronisasi seperti `pending`, `synced`, dan `failed`, atau rancangan setara yang konsisten.
+
+Jika lingkungan mendukung antrean pekerjaan, gunakan queue untuk operasi sinkronisasi yang sesuai. Jika tidak, dokumentasikan alternatif yang aman.
+
+Buat log yang membantu diagnosis tanpa membocorkan token atau informasi rahasia.
+
+## 11. MODUL READING BOOK
+
+Buat modul untuk mengelola koleksi dan progres membaca buku.
+
+Fitur wajib:
+
+- Menambahkan buku.
+- Mengedit buku.
+- Menghapus buku.
+- Menampilkan detail buku.
+- Menyimpan judul.
+- Menyimpan penulis.
+- Menyimpan ISBN jika tersedia.
+- Menyimpan deskripsi.
+- Menyimpan jumlah halaman.
+- Menyimpan halaman yang sedang dibaca.
+- Menyimpan tanggal mulai dan selesai.
+- Menyimpan status membaca.
+- Menyimpan rating pribadi jika diinginkan.
+- Menyimpan sampul buku jika tersedia.
+- Menampilkan progres membaca dalam persentase.
+- Memfilter berdasarkan status membaca.
+- Mencari berdasarkan judul atau penulis.
+- Menambahkan catatan buku.
+- Menambahkan kutipan atau ringkasan.
+- Mencatat nomor halaman untuk catatan terkait.
+- Mengekspor data buku dan catatan ke PDF.
+
+Status membaca dapat mencakup `want_to_read`, `reading`, dan `completed`.
+
+Validasi bahwa halaman saat ini tidak negatif dan tidak melebihi total halaman apabila total halaman diketahui.
+
+Pastikan progres membaca dihitung dari data yang benar.
+
+## 12. DESAIN DATABASE DAN MIGRASI
+
+Rancang database PostgreSQL dengan relasi, foreign key, index, constraint, dan tipe data yang sesuai.
+
+Gunakan tabel berikut sebagai rancangan awal. Sesuaikan jika ditemukan kebutuhan teknis yang lebih baik dan dokumentasikan alasannya.
+
+### Tabel `users`
+
+Kolom inti:
+- `id`
+- `name`
+- `email`
+- `password` jika autentikasi password digunakan
+- `google_id` jika diperlukan untuk pemetaan akun
+- `avatar`
+- `timezone`
+- `locale`
+- `email_verified_at`
+- `remember_token`
+- `created_at`
+- `updated_at`
+
+Ikuti kebutuhan tabel bawaan Laravel apabila paket autentikasi yang digunakan memerlukannya.
+
+### Tabel `diary_entries`
+
+- `id`
+- `user_id`
+- `entry_date`
+- `title`
+- `content`
+- `insights` nullable
+- `created_at`
+- `updated_at`
+
+### Tabel `journal_entries`
+
+Gunakan tabel ini untuk catatan jurnal harian umum jika memang berbeda dari Diary.
+
+- `id`
+- `user_id`
+- `entry_date`
+- `notes` nullable
+- `created_at`
+- `updated_at`
+
+### Tabel item rasa syukur
+
+Buat tabel terpisah, misalnya `gratitude_items`, dengan kolom:
+
+- `id`
+- `user_id`
+- `journal_entry_id` atau referensi catatan yang dipilih
+- `content`
+- `created_at`
+- `updated_at`
+
+Tentukan relasi yang konsisten dan hindari menyimpan struktur data berulang dalam satu string.
+
+### Tabel `mood_entries`
+
+- `id`
+- `user_id`
+- `entry_date`
+- `mood_score`
+- `notes` nullable
+- `created_at`
+- `updated_at`
+
+Tetapkan skala mood serta aturan pencatatan harian secara eksplisit.
+
+### Tabel `todos`
+
+- `id`
+- `user_id`
+- `title`
+- `description` nullable
+- `priority`
+- `status`
+- `due_at` nullable
+- `completed_at` nullable
+- `created_at`
+- `updated_at`
+
+### Tabel `habits`
+
+- `id`
+- `user_id`
+- `name`
+- `description` nullable
+- `frequency`
+- `is_active`
+- `created_at`
+- `updated_at`
+
+### Tabel `habit_logs`
+
+- `id`
+- `user_id` jika dibutuhkan untuk konsistensi dan otorisasi
+- `habit_id`
+- `log_date`
+- `completed_at` nullable
+- `notes` nullable
+- `created_at`
+- `updated_at`
+
+Tambahkan constraint unik yang sesuai agar satu kebiasaan tidak dapat dicatat ganda pada tanggal yang sama.
+
+### Tabel `schedules`
+
+- `id`
+- `user_id`
+- `todo_id` nullable
+- `title`
+- `description` nullable
+- `start_at`
+- `end_at`
+- `timezone`
+- `location` nullable
+- `google_event_id` nullable
+- `sync_status`
+- `created_at`
+- `updated_at`
+
+Tambahkan index pada kolom yang sering digunakan untuk pencarian tanggal dan relasi.
+
+### Tabel `books`
+
+- `id`
+- `user_id`
+- `title`
+- `author` nullable
+- `isbn` nullable
+- `description` nullable
+- `total_pages` nullable
+- `current_page`
+- `status`
+- `started_at` nullable
+- `finished_at` nullable
+- `cover_path` nullable
+- `rating` nullable
+- `created_at`
+- `updated_at`
+
+### Tabel `book_notes`
+
+- `id`
+- `user_id` jika diperlukan untuk pemeriksaan kepemilikan yang konsisten
+- `book_id`
+- `page_number` nullable
+- `note_type`
+- `title` nullable
+- `content`
+- `created_at`
+- `updated_at`
+
+### Tabel `google_integrations`
+
+- `id`
+- `user_id`
+- `provider`
+- `google_account_email` nullable
+- `encrypted_access_token` jika memang diperlukan
+- `encrypted_refresh_token` jika tersedia
+- `token_expires_at` nullable
+- `scopes`
+- `calendar_id` nullable
+- `status`
+- `created_at`
+- `updated_at`
+
+Jangan menyimpan token dalam bentuk plaintext. Gunakan mekanisme enkripsi yang aman, penanganan refresh token yang benar, dan pembatasan akses.
+
+### Tabel `calendar_sync_logs`
+
+- `id`
+- `user_id`
+- `schedule_id` nullable
+- `provider_event_id` nullable
+- `operation`
+- `sync_status`
+- `error_code` nullable
+- `synced_at` nullable
+- `created_at`
+- `updated_at`
+
+Sesuaikan rancangan agar dapat mencatat kegagalan tanpa menyimpan data sensitif secara tidak perlu.
+
+### Ketentuan database
+
+- Buat migration untuk seluruh tabel.
+- Buat foreign key yang benar.
+- Gunakan cascading delete hanya ketika perilakunya memang diinginkan.
+- Buat index pada kolom pencarian dan filter yang relevan.
+- Gunakan constraint unik untuk aturan yang wajib dipenuhi.
+- Tentukan tipe data PostgreSQL yang sesuai.
+- Simpan waktu secara konsisten dan konversikan berdasarkan zona waktu pengguna ketika ditampilkan.
+- Buat model Eloquent beserta relasinya.
+- Buat factory dan seeder untuk pengembangan.
+- Uji migration pada database yang benar-benar kompatibel.
+- Dokumentasikan ERD serta alasan desain relasi.
+
+Jangan mengandalkan validasi frontend saja untuk menjaga integritas database.
+
+## 13. EKSPOR PDF
+
+Setiap modul yang relevan harus menyediakan fitur ekspor PDF.
+
+Modul yang wajib didukung:
+
+- Diary.
+- Todo List.
+- Habit Tracker.
+- Gratitude Journal.
+- Mood Tracker.
+- Scheduling.
+- Reading Book beserta catatannya.
+
+Persyaratan PDF:
+
+- Tata letak profesional dan konsisten.
+- Judul dokumen.
+- Identitas pengguna seperlunya.
+- Tanggal pembuatan dokumen.
+- Filter periode yang digunakan.
+- Nomor halaman jika didukung.
+- Header dan footer jika sesuai.
+- Tabel atau tata letak yang mudah dibaca.
+- Penanganan teks panjang dan pergantian halaman.
+- Dukungan karakter Unicode yang memadai.
+- Tidak ada data pengguna lain di dalam hasil ekspor.
+- Penanganan data kosong yang benar.
+- Nama file yang aman dan bermakna.
+
+Gunakan generator PDF yang sesuai dengan lingkungan deployment. Pilih Browsershot/Chromium jika lingkungan mendukungnya, atau Dompdf jika lebih sesuai.
+
+Jangan membuat PDF dengan hanya mengganti ekstensi file HTML menjadi `.pdf`.
+
+Uji hasil ekspor secara nyata, termasuk data panjang, karakter khusus, halaman banyak, dan kondisi tanpa data.
+
+## 14. PROGRESSIVE WEB APP (PWA)
+
+Siapkan aplikasi agar dapat dipasang sebagai PWA jika browser dan lingkungan mendukungnya.
+
+Implementasikan:
+
+- Web App Manifest.
+- Nama aplikasi.
+- Ikon aplikasi yang sesuai.
+- Theme color.
+- Tampilan saat dibuka sebagai aplikasi.
+- Service worker.
+- Strategi caching yang sesuai.
+- Halaman fallback offline jika diperlukan.
+- Dokumentasi cara menguji instalasi PWA.
+
+Keamanan caching adalah persyaratan utama.
+
+Jangan pernah menyimpan respons privat yang berisi Diary, Journal, Todo, Mood, token, profil, atau data pribadi lain ke cache publik secara sembarangan.
+
+Jangan mengklaim aplikasi mendukung pembuatan dan sinkronisasi data secara offline jika mekanisme penyimpanan lokal, konflik, dan sinkronisasi belum benar-benar diimplementasikan serta diuji.
+
+Jika dukungan offline penuh terlalu kompleks untuk tahap awal, prioritaskan PWA yang aman dan jelaskan batasan offline dengan jujur.
+
+## 15. KEAMANAN APLIKASI
+
+Terapkan keamanan sejak awal, bukan sebagai pekerjaan terakhir.
+
+Persyaratan:
+
+- Autentikasi untuk halaman privat.
+- Otorisasi menggunakan Policies atau mekanisme setara.
+- Pemeriksaan kepemilikan pada seluruh operasi baca, ubah, hapus, dan ekspor.
+- Validasi input pada backend.
+- Proteksi CSRF.
+- Proteksi XSS dengan escaping yang benar.
+- Pencegahan SQL injection menggunakan Eloquent atau parameterized queries.
+- Rate limiting pada endpoint sensitif.
+- Penanganan sesi yang aman.
+- Pembatasan upload file berdasarkan tipe, ukuran, dan isi yang diperbolehkan.
+- Perlindungan akses file privat.
+- Perlindungan terhadap IDOR.
+- Pengelolaan secret melalui environment variables.
+- Tidak ada secret dalam repositori.
+- Log tidak mengandung password, token, atau kredensial.
+- Error produksi tidak menampilkan stack trace atau informasi internal.
+- Kebijakan CORS dan security headers yang sesuai dengan arsitektur.
+- Kebijakan penghapusan akun dan data yang jelas apabila fitur tersebut disediakan.
+
+Jika menggunakan Supabase Storage, pastikan bucket dan kebijakan aksesnya sesuai dengan kebutuhan privat aplikasi. Jangan mengandalkan nama file yang sulit ditebak sebagai pengganti otorisasi.
+
+Jika koneksi database langsung melalui Laravel digunakan, semua operasi database harus tetap melewati backend yang melakukan autentikasi dan otorisasi.
+
+Jika Supabase Row Level Security (RLS) digunakan, rancang kebijakan dan konteks autentikasi secara eksplisit. Jangan menganggap RLS otomatis melindungi query backend yang menggunakan hak akses istimewa.
+
+Buat `docs/security.md` yang menjelaskan kontrol keamanan dan risiko yang masih tersisa.
+
+## 16. PENGUJIAN OTOMATIS
+
+Buat automated tests menggunakan framework pengujian yang sesuai dengan versi Laravel.
+
+Pengujian wajib mencakup:
+
+### Autentikasi
+- Halaman privat tidak dapat diakses tanpa login.
+- Login valid berhasil.
+- Login tidak valid ditangani dengan benar.
+- Logout mengakhiri sesi.
+- Alur OAuth ditangani dengan benar melalui pengujian yang sesuai.
+
+### Isolasi data
+- Pengguna A tidak dapat membaca data pengguna B.
+- Pengguna A tidak dapat mengedit data pengguna B.
+- Pengguna A tidak dapat menghapus data pengguna B.
+- Pengguna A tidak dapat mengekspor data pengguna B.
+- Manipulasi ID pada URL atau request tidak melewati otorisasi.
+
+### CRUD modul
+Uji operasi create, read, update, dan delete pada setiap modul.
+
+### Integritas data
+- Validasi form.
+- Constraint unik habit log.
+- Relasi Todo dan Scheduling.
+- Validasi waktu jadwal.
+- Validasi halaman buku.
+- Penanganan tanggal dan zona waktu.
+- Aturan status dan progres.
+
+### PDF
+- Endpoint ekspor memerlukan otorisasi.
+- File PDF berhasil dihasilkan.
+- Isi ekspor sesuai filter.
+- Data antar pengguna tidak tercampur.
+
+### Google Calendar
+- Sinkronisasi sukses.
+- Penanganan kegagalan API.
+- Pencegahan event ganda.
+- Penanganan token yang kedaluwarsa.
+- Pencatatan status sinkronisasi.
+
+Gunakan mock atau fake untuk layanan eksternal jika sesuai. Jangan mengklaim pengujian integrasi eksternal nyata berhasil apabila hanya menggunakan mock.
+
+### PWA dan deployment
+- Manifest dapat diakses.
+- Service worker dapat didaftarkan.
+- Aset penting dapat dimuat.
+- Tidak ada cache publik yang membocorkan data privat.
+- Konfigurasi produksi tidak mengandalkan file lokal sementara tanpa strategi penyimpanan yang sesuai.
+
+Setelah membuat atau mengubah kode, jalankan pengujian yang relevan. Perbaiki error yang ditemukan dan jalankan ulang pengujian.
+
+Catat perintah serta hasil aktual di `docs/testing.md`.
+
+## 17. DOKUMENTASI DAN STRUKTUR REPOSITORI
+
+Buat dokumentasi yang membantu developer lain menjalankan dan memelihara aplikasi.
+
+Dokumentasi wajib:
+
+- Ringkasan aplikasi.
+- Teknologi yang digunakan.
+- Prasyarat instalasi.
+- Langkah instalasi lokal.
+- Konfigurasi `.env`.
+- Konfigurasi Supabase PostgreSQL.
+- Konfigurasi Supabase Storage jika digunakan.
+- Konfigurasi Google OAuth.
+- Konfigurasi Google Calendar API.
+- Migrasi database.
+- Seeder dan data demo.
+- Cara menjalankan frontend dan backend.
+- Cara menjalankan pengujian.
+- Cara membangun aset produksi.
+- Cara deployment.
+- Strategi backup dan pemulihan.
+- Risiko teknis yang belum diselesaikan.
+
+Sediakan `.env.example` tanpa kredensial nyata.
+
+Pastikan `.env`, token, file privat, dan artefak sensitif tidak masuk ke Git.
+
+Tambahkan `.gitignore` yang sesuai.
+
+Jika memungkinkan, siapkan workflow CI untuk menjalankan pemeriksaan kode dan pengujian otomatis. Jangan membuat workflow yang mengklaim sukses tanpa benar-benar dapat dijalankan.
+
+## 18. TAHAPAN IMPLEMENTASI
+
+Kerjakan dalam urutan berikut. Tahapan ini adalah panduan eksekusi, bukan alasan untuk berhenti setelah membuat rencana.
+
+### Tahap 1 — Audit dan perencanaan
+- Periksa workspace.
+- Periksa versi teknologi.
+- Dokumentasikan arsitektur.
+- Tentukan dependensi dan kompatibilitas.
+- Buat roadmap dan catatan progres.
+
+### Tahap 2 — Fondasi proyek
+- Siapkan konfigurasi aplikasi.
+- Pasang dependensi yang diperlukan.
+- Konfigurasikan koneksi PostgreSQL.
+- Siapkan layout utama.
+- Siapkan sistem navigasi.
+- Pastikan aplikasi dapat dijalankan.
+
+### Tahap 3 — Database dan autentikasi
+- Buat migration.
+- Buat model dan relasi.
+- Implementasikan login, logout, dan Google OAuth.
+- Terapkan otorisasi dan isolasi data.
+- Buat pengujian awal.
+
+### Tahap 4 — Dashboard
+- Buat dashboard berbasis database.
+- Implementasikan ringkasan dan navigasi.
+- Uji akses serta perhitungan data.
+
+### Tahap 5 — Diary dan Journal
+- Implementasikan Diary.
+- Implementasikan Todo List.
+- Implementasikan Gratitude Journal.
+- Implementasikan Mood Tracker.
+- Uji seluruh CRUD dan validasi.
+
+### Tahap 6 — Habit Tracker
+- Implementasikan pencatatan kebiasaan.
+- Implementasikan riwayat dan progres.
+- Uji aturan frekuensi dan duplikasi data.
+
+### Tahap 7 — Scheduling
+- Implementasikan pengelolaan jadwal.
+- Hubungkan jadwal dengan Todo.
+- Implementasikan tampilan kalender.
+- Uji zona waktu dan validasi rentang waktu.
+
+### Tahap 8 — Google Calendar
+- Implementasikan OAuth scope kalender.
+- Implementasikan sinkronisasi awal.
+- Terapkan pencatatan log dan penanganan kegagalan.
+- Uji idempotensi dan akses token.
+
+### Tahap 9 — Reading Book
+- Implementasikan koleksi buku.
+- Implementasikan progres membaca.
+- Implementasikan catatan buku dan kutipan.
+- Uji validasi dan kepemilikan data.
+
+### Tahap 10 — PDF
+- Implementasikan ekspor pada seluruh modul yang relevan.
+- Uji tata letak, isi, dan keamanan ekspor.
+
+### Tahap 11 — PWA
+- Implementasikan manifest dan service worker.
+- Terapkan strategi caching yang aman.
+- Uji instalasi dan perilaku offline yang benar-benar didukung.
+
+### Tahap 12 — Penguatan kualitas
+- Jalankan automated tests.
+- Periksa validasi dan otorisasi.
+- Perbaiki bug.
+- Periksa performa query dan index.
+- Periksa tampilan responsif.
+- Periksa aksesibilitas dasar.
+- Audit secret dan konfigurasi produksi.
+
+### Tahap 13 — Dokumentasi dan deployment
+- Lengkapi seluruh dokumentasi.
+- Siapkan konfigurasi produksi.
+- Verifikasi dukungan platform hosting.
+- Siapkan prosedur migrasi dan backup.
+- Jalankan pemeriksaan final.
+- Perbarui catatan progres dan daftar keterbatasan yang masih tersisa.
+
+## 19. KRITERIA PENYELESAIAN AKHIR
+
+Aplikasi hanya boleh dinyatakan selesai apabila seluruh kriteria berikut telah diverifikasi:
+
+1. Aplikasi dapat dijalankan dengan prosedur instalasi yang terdokumentasi.
+2. Koneksi database berfungsi.
+3. Migration dapat dijalankan pada database target.
+4. Autentikasi dan otorisasi berfungsi.
+5. Seluruh modul utama memiliki operasi CRUD yang berfungsi.
+6. Data tersimpan secara persisten.
+7. Pengguna tidak dapat mengakses data pengguna lain.
+8. Relasi Todo dan Scheduling berfungsi dengan benar.
+9. Integrasi Google Calendar berfungsi sesuai cakupan yang benar-benar diimplementasikan.
+10. Ekspor PDF pada modul yang relevan dapat menghasilkan dokumen yang valid.
+11. PWA berfungsi sesuai batasan yang didokumentasikan.
+12. Tampilan dapat digunakan pada desktop dan perangkat mobile.
+13. Tombol dan formulir utama tidak berupa elemen dekoratif tanpa fungsi.
+14. Validasi dan penanganan kesalahan diterapkan secara konsisten.
+15. Pengujian otomatis yang relevan telah dijalankan.
+16. Semua kegagalan pengujian yang diketahui telah diperbaiki atau dicatat secara eksplisit beserta alasannya.
+17. Dokumentasi instalasi, konfigurasi, pengujian, keamanan, dan deployment tersedia.
+18. Tidak ada kredensial nyata yang disimpan di repositori.
+19. Tidak ada fitur yang dinyatakan berhasil tanpa verifikasi.
+20. `docs/implementation-progress.md` mencerminkan kondisi proyek yang sebenarnya.
+
+Jika ada kriteria yang belum terpenuhi, jangan menyatakan proyek selesai. Jelaskan bagian yang belum selesai dan lanjutkan pengerjaan jika memungkinkan.
+
+## 20. INSTRUKSI EKSEKUSI TERAKHIR
+
+Mulai sekarang dengan memeriksa seluruh workspace yang tersedia.
+
+Setelah audit, buat atau perbarui dokumentasi arsitektur, desain database, roadmap, keamanan, deployment, testing, dan progres.
+
+Kemudian langsung implementasikan proyek secara bertahap.
+
+Setiap kali menyelesaikan suatu tahap:
+1. Periksa hasil implementasi.
+2. Jalankan pengujian yang relevan.
+3. Perbaiki kesalahan yang ditemukan.
+4. Perbarui dokumentasi progres.
+5. Lanjutkan ke tahap berikutnya.
+
+Jangan berhenti hanya karena satu modul telah selesai. Jangan hanya menampilkan daftar file yang perlu dibuat. Buat dan ubah file tersebut secara langsung di workspace.
+
+Jika batas konteks, waktu, atau kemampuan eksekusi membuat seluruh proyek tidak dapat diselesaikan dalam satu sesi, simpan progres yang terperinci. Pada sesi berikutnya, baca `docs/implementation-progress.md`, periksa kondisi kode terkini, lalu lanjutkan dari pekerjaan nyata terakhir yang belum selesai.
+
+**Prioritas utama adalah aplikasi yang berfungsi, aman, konsisten, dapat diuji, terdokumentasi, dan benar-benar siap digunakan — bukan sekadar banyaknya kode atau bagusnya tampilan.**
+
+Mulai dengan audit workspace sekarang, lalu lanjutkan implementasi hingga kriteria penyelesaian akhir terpenuhi.
